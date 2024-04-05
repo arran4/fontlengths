@@ -48,4 +48,4 @@ nfpms:
     priority: extra
 release:
     extra_files:
-        - premade.zip
+        - glob: premade.zip
