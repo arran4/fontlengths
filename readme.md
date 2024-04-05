@@ -17,3 +17,11 @@ https://github.com/arran4/golang-wordwrap/releases
 
 Donwload pre-run results: Look for "premade.zip" in:
 https://github.com/arran4/golang-wordwrap/releases
+
+Want to increase the fonts in `premade.zip` modify:
+[goreleaser.yml](.github/workflows/goreleaser.yml)
+
+Currently adding fonts using:
+```
+            sudo apt install -y fonts-freefont-ttf fonts-freefont-otf xfonts-100dpi
+```
