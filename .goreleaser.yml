@@ -22,8 +22,6 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
-    files:
-        - premade.zip
 checksum:
   name_template: 'checksums.txt'
 snapshot:
@@ -48,3 +46,6 @@ nfpms:
     release: 1
     section: default
     priority: extra
+release:
+    extra_files:
+        - premade.zip
