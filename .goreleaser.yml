@@ -54,5 +54,8 @@ brews:
     repository:
       owner: arran4
       name: homebrew-tap
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}" # From Secrets.TAP_GITHUB_TOKEN update ci.yaml too to match
+      token_type: "github"
       pull_request:
         enabled: true
+        draft: false
