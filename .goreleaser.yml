@@ -49,3 +49,10 @@ nfpms:
 release:
     extra_files:
         - glob: premade.zip
+brews:
+  -
+    repository:
+      owner: arran4
+      name: homebrew-tap
+      pull_request:
+        enabled: true
