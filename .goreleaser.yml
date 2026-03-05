@@ -64,3 +64,6 @@ homebrew_casks:
       pull_request:
         enabled: true
         draft: false
+      commit_author:
+        name: goreleaserbot
+        email: bot@goreleaser.com
