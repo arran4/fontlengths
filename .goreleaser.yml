@@ -1,5 +1,5 @@
 version: 2
-project_name: golang-wordwrap
+project_name: fontlengths
 builds:
   - id: "generate"
     binary: "generate-font-length"
@@ -58,6 +58,7 @@ brews:
   - repository:
       owner: arran4
       name: homebrew-tap
+      branch: "{{.ProjectName}}-{{.Version}}"
       token: "{{ .Env.TAP_GITHUB_TOKEN }}"
       pull_request:
         enabled: true
