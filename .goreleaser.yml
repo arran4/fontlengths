@@ -1,7 +1,7 @@
+version: 2
 project_name: golang-wordwrap
 builds:
-  -
-    id: "generate"
+  - id: "generate"
     binary: "generate-font-length"
     dir: cmd/generate
     env:
@@ -17,15 +17,21 @@ builds:
     goarm:
       - 6
       - 7
-archives:
-  -
-    format_overrides:
+    ignore:
       - goos: windows
-        format: zip
+        goarch: arm
+        goarm: 6
+      - goos: windows
+        goarch: arm
+        goarm: 7
+archives:
+  - format_overrides:
+      - goos: windows
+        formats: ['zip']
 checksum:
   name_template: 'checksums.txt'
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  version_template: "{{ .Tag }}-next"
 changelog:
   sort: asc
   filters:
@@ -33,8 +39,7 @@ changelog:
       - '^docs:'
       - '^test:'
 nfpms:
-  -
-    vendor: Ubels Software Development
+  - vendor: Ubels Software Development
     homepage: https://github.com/arran4/
     maintainer: Arran Ubels <arran@ubels.com.au>
     description: NA
@@ -47,15 +52,13 @@ nfpms:
     section: default
     priority: extra
 release:
-    extra_files:
-        - glob: premade.zip
+  extra_files:
+    - glob: premade.zip
 brews:
-  -
-    repository:
+  - repository:
       owner: arran4
       name: homebrew-tap
-      token: "{{ .Env.TAP_GITHUB_TOKEN }}" # From Secrets.TAP_GITHUB_TOKEN update ci.yaml too to match
-      token_type: "github"
+      token: "{{ .Env.TAP_GITHUB_TOKEN }}"
       pull_request:
         enabled: true
         draft: false
