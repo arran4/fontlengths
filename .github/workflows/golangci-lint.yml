@@ -25,7 +25,7 @@ jobs:
             ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
       - uses: actions/setup-go@v6
         with:
-          go-version: go.mod
+          go-version-file: go.mod
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v9
         with:
