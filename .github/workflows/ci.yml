@@ -237,33 +237,6 @@ jobs:
           cache: true
       - run: go vet ./...
 
-  go-fmt-pr:
-    name: go fmt -> PR (manual dispatch)
-    needs: [route]
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'lint-fix' && inputs.allow_prs == true }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v6
-        with:
-          go-version-file: go.mod
-      - name: Run go fmt
-        run: go fmt ./...
-      - name: Create PR if go fmt changed files
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          git diff --quiet && { echo "No fmt changes"; exit 0; }
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          BRANCH="ci/gofmt/${{ github.run_id }}"
-          git checkout -b "$BRANCH"
-          git add -A
-          git commit -m "ci: go fmt"
-          git push origin "$BRANCH"
-          gh pr create --title "ci: go fmt" --body "Automated go fmt from manual dispatch." --base main --head "$BRANCH" --label "ci-autofix"
-
   autofix:
     name: Auto-format and open PR
     needs: [route]
@@ -320,7 +293,7 @@ jobs:
   goreleaser:
     name: GoReleaser
     needs: [route, go-test, prepare-release-tag]
-    if: ${{ (((github.event_name == 'push') && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && startsWith(inputs.mode, 'release-'))) }}
+    if: ${{ !failure() && !cancelled() && (((github.event_name == 'push') && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && startsWith(inputs.mode, 'release-'))) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
